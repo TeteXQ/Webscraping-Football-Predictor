@@ -10,12 +10,11 @@ def getDatafromSite():
     data = requests.get(contestURL)
     soup = BeautifulSoup(data.text, features="html.parser")
     statsTable = soup.select("table.stats_table")
-    '''links = statsTable.find_all("a")
-    links = [l.get("href") for l in links]'''
-
-    
+    links = statsTable.find_all("a")
+    links = [l.get("href") for l in links]
     
     return statsTable
+    #asdfujilghasldrek hjfggysdfölkjgvhydfölkjg
+    #awserdfgtpoiubasdhjkfblyöxfkcjgfh
 
-
-
+print(getDatafromSite())
