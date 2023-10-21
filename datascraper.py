@@ -16,10 +16,28 @@ def getTablesfromSite(contestURL):
         
 def selectTablefromTables(Tables, pos:int):
     #Select one of the tables from site 
-    specificTable = Tables[pos]
-    return specificTable
+    try:
+        specificTable = Tables[pos]
+        logging.info(f"Selected 1 table from {len(Tables)}")
+        return specificTable
+    except Exception as e:
+        logging.error(f"Couldnt select any Tables from given value", e)
+        return None
+    
+def removeIllegalChars(Table):
+    try:
+        df = Table
+        df = df.replace(("'")," ")
+        return df
+    except Exception as e:
+        logging.error(f"Couldnt change illegal chars", e)
+        return None
+
     
 
 a = getTablesfromSite("https://fbref.com/en/comps/20/Bundesliga-Stats")
 b = selectTablefromTables(a,1)
 print(b)
+#print(list(b.columns))
+#c = removeIllegalChars(b)
+#print(c)
