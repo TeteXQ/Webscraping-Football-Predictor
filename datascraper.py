@@ -13,8 +13,9 @@ def getDatafromSite():
     links = statsTable.find_all("a")
     links = [l.get("href") for l in links]
     
-    return statsTable
-    #asdfujilghasldrek hjfggysdfölkjgvhydfölkjg
-    #awserdfgtpoiubasdhjkfblyöxfkcjgfh
 
+
+    #asdfgihaysdfljökghydfg
+
+    return statsTable
 print(getDatafromSite())
