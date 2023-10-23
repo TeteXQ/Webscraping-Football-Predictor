@@ -33,11 +33,30 @@ def removeIllegalChars(Table):
         logging.error(f"Couldnt change illegal chars", e)
         return None
 
-    
+def getUpcomingMatchday(contestURL):
+    try:
+        df = pd.read_html(contestURL)[0]
+        try:
+            #Get rid of unneeded columns
+            print(df.keys())
+            df = df.drop(["Attendance", "Referee","Match Report", "Notes"], axis=1)
+            #Delete all rows except the ones from next / current matchday
+            df = df[df['Score'].isnull()].dropna(axis = 0, how = 'all')
+            df = df[df["Wk"].iloc[0] >= df["Wk"]]
+            return df
+        except Exception as e:
+            logging.error(f"Couldnt format Dataframe properly \n {df}", e)
+        
+    except Exception as e:
+        logging.error(f"Couldnt find any tables on given URL {contestURL}", e)
+        return None
 
-a = getTablesfromSite("https://fbref.com/en/comps/20/Bundesliga-Stats")
-b = selectTablefromTables(a,1)
-print(b)
+
+#a = getTablesfromSite("https://fbref.com/en/comps/20/Bundesliga-Stats")
+d = getUpcomingMatchday("https://fbref.com/en/comps/20/schedule/Bundesliga-Scores-and-Fixtures")
+#b = selectTablefromTables(a,1)
+print(d)
+#print(b)
 #print(list(b.columns))
 #c = removeIllegalChars(b)
 #print(c)
