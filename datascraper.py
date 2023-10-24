@@ -38,7 +38,6 @@ def getUpcomingMatchday(contestURL):
         df = pd.read_html(contestURL)[0]
         try:
             #Get rid of unneeded columns
-            print(df.keys())
             df = df.drop(["Attendance", "Referee","Match Report", "Notes"], axis=1)
             #Delete all rows except the ones from next / current matchday
             df = df[df['Score'].isnull()].dropna(axis = 0, how = 'all')
@@ -46,15 +45,24 @@ def getUpcomingMatchday(contestURL):
             return df
         except Exception as e:
             logging.error(f"Couldnt format Dataframe properly \n {df}", e)
-        
     except Exception as e:
         logging.error(f"Couldnt find any tables on given URL {contestURL}", e)
         return None
 
+def getLeagueTable(contestURL):
+    try:
+        df = selectTablefromTables(getTablesfromSite(contestURL),0)
+        return df
+    except Exception as e:
+        logging.error(f"Couldnt get Leaguetable from {contestURL}", e)
+        return
+
 
 #a = getTablesfromSite("https://fbref.com/en/comps/20/Bundesliga-Stats")
 d = getUpcomingMatchday("https://fbref.com/en/comps/20/schedule/Bundesliga-Scores-and-Fixtures")
+g = getLeagueTable("https://fbref.com/en/comps/20/Bundesliga-Stats")
 #b = selectTablefromTables(a,1)
+print(g)
 print(d)
 #print(b)
 #print(list(b.columns))
