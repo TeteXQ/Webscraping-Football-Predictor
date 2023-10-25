@@ -57,6 +57,9 @@ def getLeagueTable(contestURL):
         logging.error(f"Couldnt get Leaguetable from {contestURL}", e)
         return
 
+class Data:
+    pass
+
 
 #a = getTablesfromSite("https://fbref.com/en/comps/20/Bundesliga-Stats")
 d = getUpcomingMatchday("https://fbref.com/en/comps/20/schedule/Bundesliga-Scores-and-Fixtures")
