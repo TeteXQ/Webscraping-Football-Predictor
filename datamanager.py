@@ -4,7 +4,7 @@ import logging
 import pandas as pd
 import datascraper
 
-class FootballData:
+class LeagueData:
     def __init__(self) -> None:
         pass
     
