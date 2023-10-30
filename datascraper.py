@@ -21,7 +21,6 @@ class LeagueData:
                 return("/".join(self.contestURL.split("/",maxsplit=3)[:3])+partialURL)
             except Exception as e:
                 logging.error(f"Couldnt find any URLs from keyword: {keyword}", e)
-
     
     def getTablesfromSite(self):
         #Get all tables of given Site
@@ -71,7 +70,7 @@ class LeagueData:
 
     def getLeagueTable(self):
         try:
-            df = LeagueData.selectTablefromTables(LeagueData.getTablesfromSite(),0)
+            df = LeagueData.selectTablefromTables(self,LeagueData.getTablesfromSite(self),0)
             return df
         except Exception as e:
             logging.error(f"Couldnt get Leaguetable from {self.contestURL}", e)
@@ -80,6 +79,7 @@ class LeagueData:
 
 
 d = LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
-print(d.nextMatchday())
+#print(d.nextMatchday())
+print(d.getLeagueTable())
 
 #print(g)
