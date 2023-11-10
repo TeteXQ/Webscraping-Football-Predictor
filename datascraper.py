@@ -68,9 +68,21 @@ class LeagueData:
             logging.error(f"Couldnt find any tables on given URL {self.contestURL}", e)
             return None
 
+    def currentMatchday(self):
+        try: 
+            scoresURL = self.switchURL("Scores-and-Fixtures")
+            df = pd.read_html(scoresURL)[0]
+            dfnextMD = self.nextMatchday()
+            df = df[df["Wk"].isin(dfnextMD["Wk"])]
+            logging.info(f"Successfully found current matchday")
+            return df
+        except Exception as e:
+            logging.error(f"Couldnt generate current matchday",e)
+            return
+
     def getLeagueTable(self):
         try:
-            df = LeagueData.selectTablefromTables(self,LeagueData.getTablesfromSite(self),0)
+            df = self.selectTablefromTables(LeagueData.getTablesfromSite(),0)
             return df
         except Exception as e:
             logging.error(f"Couldnt get Leaguetable from {self.contestURL}", e)
