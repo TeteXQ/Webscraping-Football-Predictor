@@ -1,6 +1,4 @@
-# football-kraken
+# Basic Football Match Predictor
+### This is a very basic python aplication to scrape footballdata from a site and then try to predict the next matchday
 ## Needed installs for script to run:
--Pandas
--BS4
--Requests
--lxml
+Install via requirents.txt
