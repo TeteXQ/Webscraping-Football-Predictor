@@ -4,12 +4,13 @@ import numpy as np
 import requests
 from bs4 import BeautifulSoup
 
-
+logging.basicConfig(level = logging.INFO)
 
 class LeagueData:
 
     def __init__(self, contestURL:str):
         self.contestURL = contestURL
+        self.scoresURL = self.switchURL("Scores-and-Fixtures")
         pass
 
     def switchURL(self, keyword:str):
@@ -21,6 +22,7 @@ class LeagueData:
                 return("/".join(self.contestURL.split("/",maxsplit=3)[:3])+partialURL)
             except Exception as e:
                 logging.error(f"Couldnt find any URLs from keyword: {keyword}", e)
+                return
     
     def getTablesfromSite(self):
         #Get all tables of given Site
@@ -51,10 +53,9 @@ class LeagueData:
             logging.error(f"Couldnt change illegal chars", e)
         return None
     
-    def nextMatchday(self):
+    def nextMatches(self):
         try:
-            scoresURL = self.switchURL("Scores-and-Fixtures")
-            df = pd.read_html(scoresURL)[0]
+            df = pd.read_html(self.scoresURL)[0]
             try:
                 #Get rid of unneeded columns
                 df = df.drop(["Attendance", "Referee","Match Report", "Notes"], axis=1)
@@ -70,10 +71,9 @@ class LeagueData:
 
     def currentMatchday(self):
         try: 
-            scoresURL = self.switchURL("Scores-and-Fixtures")
-            df = pd.read_html(scoresURL)[0]
-            dfnextMD = self.nextMatchday()
-            df = df[df["Wk"].isin(dfnextMD["Wk"])]
+            df = pd.read_html(self.scoresURL)[0]
+            dfnextMD = self.nextMatches()
+            df = df[df["Wk"].isin(dfnextMD["Wk"])].drop(["Match Report", "Notes"], axis=1)
             logging.info(f"Successfully found current matchday")
             return df
         except Exception as e:
@@ -82,7 +82,7 @@ class LeagueData:
 
     def getLeagueTable(self):
         try:
-            df = self.selectTablefromTables(LeagueData.getTablesfromSite(),0)
+            df = self.selectTablefromTables(self.getTablesfromSite(),0)
             return df
         except Exception as e:
             logging.error(f"Couldnt get Leaguetable from {self.contestURL}", e)
@@ -91,7 +91,11 @@ class LeagueData:
 
 
 d = LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
-#print(d.nextMatchday())
+#print(d.nextMatches())
 print(d.getLeagueTable())
-
+print(d.currentMatchday())
+print(d.nextMatches())
+logging.warning('Watch out!')
+print(logging)
+#logging.info("Hallo")
 #print(g)
