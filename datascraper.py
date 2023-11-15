@@ -4,7 +4,7 @@ import numpy as np
 import requests
 from bs4 import BeautifulSoup
 
-logging.basicConfig(level = logging.INFO)
+#logging.basicConfig(level = logging.INFO)
 
 class LeagueData:
 
@@ -44,14 +44,17 @@ class LeagueData:
             logging.error(f"Couldnt select any Tables from given value", e)
             return None
     
-    def removeIllegalChars(self,Table):
+    def removeIllegalChars(self, df:pd.DataFrame, columnNames:list):
         try:
-            df = Table
-            df = df.replace(("'")," ")
+            for columnname in columnNames:
+                try:
+                    df[columnname] = df[columnname].str.replace("'", " ")
+                except Exception as e:
+                    logging.error(f"Couldnt change any Chars at {columnname}",e)
             return df
         except Exception as e:
             logging.error(f"Couldnt change illegal chars", e)
-        return None
+            return
     
     def nextMatches(self):
         try:
@@ -62,7 +65,7 @@ class LeagueData:
                 #Delete all rows except the ones from next / current matchday
                 df = df[df['Score'].isnull()].dropna(axis = 0, how = 'all')
                 df = df[df["Wk"].iloc[0] >= df["Wk"]]
-                return df
+                return self.removeIllegalChars(df,["Home","Away"])
             except Exception as e:
                 logging.error(f"Couldnt format Dataframe properly \n {df}", e)
         except Exception as e:
@@ -83,7 +86,7 @@ class LeagueData:
     def getLeagueTable(self):
         try:
             df = self.selectTablefromTables(self.getTablesfromSite(),0)
-            return df
+            return self.removeIllegalChars(df.drop(["Top Team Scorer","Goalkeeper","Notes"], axis=1),["Squad"])
         except Exception as e:
             logging.error(f"Couldnt get Leaguetable from {self.contestURL}", e)
             return
@@ -92,10 +95,11 @@ class LeagueData:
 
 d = LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
 #print(d.nextMatches())
-print(d.getLeagueTable())
+print(d.removeIllegalChars(d.getLeagueTable(),["Squad","Last 5"]))
+'''
 print(d.currentMatchday())
 print(d.nextMatches())
 logging.warning('Watch out!')
 print(logging)
 #logging.info("Hallo")
-#print(g)
+#print(g)'''
