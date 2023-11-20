@@ -14,15 +14,15 @@ class LeagueData:
         pass
 
     def switchURL(self, keyword:str):
-            try:
-                res = requests.get(self.contestURL)
-                soup = BeautifulSoup(res.content, "html.parser")
-                partialURL = soup.select(f"a[href*={keyword}]")[0].get("href")
-                logging.info(f"Found {partialURL} from keyword: {keyword}")
-                return("/".join(self.contestURL.split("/",maxsplit=3)[:3])+partialURL)
-            except Exception as e:
-                logging.error(f"Couldnt find any URLs from keyword: {keyword}", e)
-                return
+        try:
+            res = requests.get(self.contestURL)
+            soup = BeautifulSoup(res.content, "html.parser")
+            partialURL = soup.select(f"a[href*={keyword}]")[0].get("href")
+            logging.info(f"Found {partialURL} from keyword: {keyword}")
+            return("/".join(self.contestURL.split("/",maxsplit=3)[:3])+partialURL)
+        except Exception as e:
+            logging.error(f"Couldnt find any URLs from keyword: {keyword}", e)
+            return
     
     def getTablesfromSite(self):
         #Get all tables of given Site
@@ -90,16 +90,25 @@ class LeagueData:
         except Exception as e:
             logging.error(f"Couldnt get Leaguetable from {self.contestURL}", e)
             return
+    
+    def getTableHomeAway(self):
+        try:
+            return self.selectTablefromTables(self.getTablesfromSite(),1)
+        except Exception as e:
+            logging.error(f"Couldnt get Home/Away Leaguetable", e)
+            
 
 
 
 d = LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
+print(d.getTableHomeAway())
+print(d.getTableHomeAway().loc[:,(["Home"],["xG"])])
+print(d.getTableHomeAway()["Home","xG"].iloc[0])
+#print (d.getTablesfromSite())
 #print(d.nextMatches())
-print(d.removeIllegalChars(d.getLeagueTable(),["Squad","Last 5"]))
+#print(d.removeIllegalChars(d.getLeagueTable(),["Squad","Last 5"]))
 '''
 print(d.currentMatchday())
 print(d.nextMatches())
 logging.warning('Watch out!')
-print(logging)
-#logging.info("Hallo")
-#print(g)'''
+'''
