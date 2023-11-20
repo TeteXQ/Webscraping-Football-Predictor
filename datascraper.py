@@ -4,7 +4,7 @@ import numpy as np
 import requests
 from bs4 import BeautifulSoup
 
-logging.basicConfig(level = logging.INFO)
+#logging.basicConfig(level = logging.INFO)
 
 class LeagueData:
 
@@ -14,15 +14,15 @@ class LeagueData:
         pass
 
     def switchURL(self, keyword:str):
-            try:
-                res = requests.get(self.contestURL)
-                soup = BeautifulSoup(res.content, "html.parser")
-                partialURL = soup.select(f"a[href*={keyword}]")[0].get("href")
-                logging.info(f"Found {partialURL} from keyword: {keyword}")
-                return("/".join(self.contestURL.split("/",maxsplit=3)[:3])+partialURL)
-            except Exception as e:
-                logging.error(f"Couldnt find any URLs from keyword: {keyword}", e)
-                return
+        try:
+            res = requests.get(self.contestURL)
+            soup = BeautifulSoup(res.content, "html.parser")
+            partialURL = soup.select(f"a[href*={keyword}]")[0].get("href")
+            logging.info(f"Found {partialURL} from keyword: {keyword}")
+            return("/".join(self.contestURL.split("/",maxsplit=3)[:3])+partialURL)
+        except Exception as e:
+            logging.error(f"Couldnt find any URLs from keyword: {keyword}", e)
+            return
     
     def getTablesfromSite(self):
         #Get all tables of given Site
@@ -44,14 +44,17 @@ class LeagueData:
             logging.error(f"Couldnt select any Tables from given value", e)
             return None
     
-    def removeIllegalChars(self,Table):
+    def removeIllegalChars(self, df:pd.DataFrame, columnNames:list):
         try:
-            df = Table
-            df = df.replace(("'")," ")
+            for columnname in columnNames:
+                try:
+                    df[columnname] = df[columnname].str.replace("'", " ")
+                except Exception as e:
+                    logging.error(f"Couldnt change any Chars at {columnname}",e)
             return df
         except Exception as e:
             logging.error(f"Couldnt change illegal chars", e)
-        return None
+            return
     
     def nextMatches(self):
         try:
@@ -62,7 +65,7 @@ class LeagueData:
                 #Delete all rows except the ones from next / current matchday
                 df = df[df['Score'].isnull()].dropna(axis = 0, how = 'all')
                 df = df[df["Wk"].iloc[0] >= df["Wk"]]
-                return df
+                return self.removeIllegalChars(df,["Home","Away"])
             except Exception as e:
                 logging.error(f"Couldnt format Dataframe properly \n {df}", e)
         except Exception as e:
@@ -83,19 +86,29 @@ class LeagueData:
     def getLeagueTable(self):
         try:
             df = self.selectTablefromTables(self.getTablesfromSite(),0)
-            return df
+            return self.removeIllegalChars(df.drop(["Top Team Scorer","Goalkeeper","Notes"], axis=1),["Squad"])
         except Exception as e:
             logging.error(f"Couldnt get Leaguetable from {self.contestURL}", e)
             return
+    
+    def getTableHomeAway(self):
+        try:
+            return self.selectTablefromTables(self.getTablesfromSite(),1)
+        except Exception as e:
+            logging.error(f"Couldnt get Home/Away Leaguetable", e)
+            
 
 
 
 d = LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
+print(d.getTableHomeAway())
+print(d.getTableHomeAway().loc[:,(["Home"],["xG"])])
+print(d.getTableHomeAway()["Home","xG"].iloc[0])
+#print (d.getTablesfromSite())
 #print(d.nextMatches())
-print(d.getLeagueTable())
+#print(d.removeIllegalChars(d.getLeagueTable(),["Squad","Last 5"]))
+'''
 print(d.currentMatchday())
 print(d.nextMatches())
 logging.warning('Watch out!')
-print(logging)
-#logging.info("Hallo")
-#print(g)
+'''
