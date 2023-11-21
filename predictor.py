@@ -16,8 +16,9 @@ class Squad:
         self.home = self.__Home()
         if self.home is not None:
             self.Rk = self.__Rk()
+            self.xGDp90 = self.__xGDp90()
             self.xG = self.__xG()
-            #self.xGA = self.__xGA()
+            self.xGA = self.__xGA()
 
     def __Home(self):
         #Does Squad play at home?
@@ -39,6 +40,20 @@ class Squad:
         except Exception as e:
             logging.error(f"Couldnt get Rank from {self.name}", e)
             return
+    def __xGDp90(self):
+        #Expected Goals depending on Home/Away divided by the amount of matches
+        try:
+            if self.home:
+                df = leagueTableHomeAway
+                df = df[(df == self.name).any(axis=1)]
+                return df["Home","xGD/90"].iloc[0]
+            else:
+                df = leagueTableHomeAway
+                df = df[(df == self.name).any(axis=1)]
+                return df["Away","xGD/90"].iloc[0]
+        except Exception as e:
+            logging.error(f"Couldnt get expected Goals from {self.name}", e)
+            return
     def __xG(self):
         #Expected Goals depending on Home/Away
         try:
@@ -54,7 +69,7 @@ class Squad:
             logging.error(f"Couldnt get expected Goals from {self.name}", e)
             return
     def __xGA(self):
-        #Expected Goals Allowed on Home/Away
+        #Expected Goals Allowed on Home/Away 
         try:
             if self.home:
                 df = leagueTableHomeAway
@@ -72,4 +87,4 @@ class Squad:
 bayern = Squad("Bayern Munich")
 print(bayern.home)
 print(bayern.Rk)
-print(bayern.xG)
+print(bayern.xGDp90)
