@@ -101,14 +101,7 @@ class LeagueData:
 
 
 d = LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
-print(d.getTableHomeAway())
-print(d.getTableHomeAway().loc[:,(["Home"],["xG"])])
-print(d.getTableHomeAway()["Home","xG"].iloc[0])
+#print(d.getTableHomeAway())
 #print (d.getTablesfromSite())
 #print(d.nextMatches())
 #print(d.removeIllegalChars(d.getLeagueTable(),["Squad","Last 5"]))
-'''
-print(d.currentMatchday())
-print(d.nextMatches())
-logging.warning('Watch out!')
-'''
