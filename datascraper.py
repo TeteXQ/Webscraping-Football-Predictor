@@ -44,18 +44,6 @@ class LeagueData:
             logging.error(f"Couldnt select any Tables from given value", e)
             return None
     
-    def removeIllegalChars(self, df:pd.DataFrame, columnNames:list):
-        try:
-            for columnname in columnNames:
-                try:
-                    df[columnname] = df[columnname].str.replace("'", " ")
-                except Exception as e:
-                    logging.error(f"Couldnt change any Chars at {columnname}",e)
-            return df
-        except Exception as e:
-            logging.error(f"Couldnt change illegal chars", e)
-            return
-    
     def nextMatches(self):
         try:
             df = pd.read_html(self.scoresURL)[0]
@@ -65,12 +53,12 @@ class LeagueData:
                 #Delete all rows except the ones from next / current matchday
                 df = df[df['Score'].isnull()].dropna(axis = 0, how = 'all')
                 df = df[df["Wk"].iloc[0] >= df["Wk"]]
-                return self.removeIllegalChars(df,["Home","Away"])
+                return df
             except Exception as e:
                 logging.error(f"Couldnt format Dataframe properly \n {df}", e)
         except Exception as e:
             logging.error(f"Couldnt find any tables on given URL {self.contestURL}", e)
-            return None
+            return
 
     def currentMatchday(self):
         try: 
@@ -86,14 +74,15 @@ class LeagueData:
     def getLeagueTable(self):
         try:
             df = self.selectTablefromTables(self.getTablesfromSite(),0)
-            return self.removeIllegalChars(df.drop(["Top Team Scorer","Goalkeeper","Notes"], axis=1),["Squad"])
+            return df.drop(["Top Team Scorer","Goalkeeper","Notes"], axis=1)
         except Exception as e:
             logging.error(f"Couldnt get Leaguetable from {self.contestURL}", e)
             return
     
     def getTableHomeAway(self):
         try:
-            return self.selectTablefromTables(self.getTablesfromSite(),1)
+            df = self.selectTablefromTables(self.getTablesfromSite(),1)
+            return df
         except Exception as e:
             logging.error(f"Couldnt get Home/Away Leaguetable", e)
             
@@ -105,3 +94,17 @@ d = LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
 #print (d.getTablesfromSite())
 #print(d.nextMatches())
 #print(d.removeIllegalChars(d.getLeagueTable(),["Squad","Last 5"]))
+
+""" 
+def removeIllegalChars(self, df:pd.DataFrame, columnNames:list):
+        try:
+            for columnname in columnNames:
+                try:
+                    df[columnname] = df[columnname].str.replace("'", " ")
+                except Exception as e:
+                    logging.error(f"Couldnt change any Chars at {columnname}",e)
+            return df
+        except Exception as e:
+            logging.error(f"Couldnt change illegal chars", e)
+            return
+"""
