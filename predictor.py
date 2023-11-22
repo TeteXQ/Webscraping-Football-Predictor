@@ -52,7 +52,7 @@ class Squad:
                 df = df[(df == self.name).any(axis=1)]
                 return df["Away","xGD/90"].iloc[0]
         except Exception as e:
-            logging.error(f"Couldnt get expected Goals from {self.name}", e)
+            logging.error(f"Couldnt get expected Goals per 90 from {self.name}", e)
             return
     def __xG(self):
         #Expected Goals depending on Home/Away
@@ -80,11 +80,39 @@ class Squad:
                 df = df[(df == self.name).any(axis=1)]
                 return df["Away","xGA"].iloc[0]
         except Exception as e:
-            logging.error(f"Couldnt get Rank from {self.squad}", e)
+            logging.error(f"Couldnt get Rank from {self.name}", e)
             return
+        
+
+def TestCalculation():
+    matches = LeagueData.nextMatches()
+
+    homeList = []
+    homePredList = []
+    awayPredList = []
+    awayList = []
+
+    for index,row in matches.iterrows():
+        #print(row["Home"])
+        homeTeam = Squad(row["Home"])
+        awayTeam = Squad(row["Away"])
+        homePred = float(homeTeam.Rk)*((homeTeam.xG)/(awayTeam.xGA))
+        awayPred = float(awayTeam.Rk)*((awayTeam.xG)/(homeTeam.xGA))
+        
+        homeList.append(f"{homeTeam.name}")
+        homePredList.append(homePred)
+        awayPredList.append(awayPred)
+        awayList.append(f"{awayTeam.name}")
+        print (homeTeam.name)
+        print (homeTeam.xGA)
+        print (awayTeam.name)
+        print (awayTeam.xG)
+
+    list = [homeList,homePredList,awayPredList,awayList]
+
+    df = pd.DataFrame(list,index=["Home","Homescore","Awayscore","Away"]).T
+    return(df)
 
 
-bayern = Squad("Bayern Munich")
-print(bayern.home)
-print(bayern.Rk)
-print(bayern.xGDp90)
+print(matches)
+print(TestCalculation())
