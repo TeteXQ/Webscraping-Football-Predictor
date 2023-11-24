@@ -114,5 +114,9 @@ def TestCalculation():
     return(df)
 
 
+
+
 print(matches)
 print(TestCalculation())
+glad = Squad("M'Gladbach")
+print(glad.name)
