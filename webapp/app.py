@@ -1,5 +1,5 @@
 from flask import Flask
-from pages import pages
+from allpages import pages
 
 # insert data for button "Home"
 
