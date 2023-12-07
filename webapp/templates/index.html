@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startseite</title>
-    <link rel="stylesheet" href="styles.css" media="screen">
+    <title>Kraken</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
+
 <body bgcolor="001116">
-    <div style="font-family: Arial, Helvetica, sans-serif;">
-    {% block content %}
-    <h1 style="color: white;">
-        Startseite
-    </h1>
-        {% endblock %}
-  
-</div>
-    <script 
-    type="text/javascript" 
-    src="{{ url_for('static', filename='index.js')}}"
-    >
-        </script>
-    </body>
+    <div style="display: flex; width : 100%">
+        <div class="sidebar">
+            <header>
+                <h1 style="color: white; font-family: Arial, Helvetica, sans-serif;">Kraken</h1>
+            </header>
+            <ul>
+                <li>
+                    <a href="/">
+                        <h3>Startseite</h3>
+                    </a>
+                    <a href="predictions">
+                        <h3>Predictions</h3>
+                    </a>
+                    <a href="calculations">
+                        <h3>Calculations</h3>
+                    </a>
+                    <a href="current_chart">
+                        <h3>Current Chart</h3>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div style="font-family: Arial, Helvetica, sans-serif;">
+            {% block content %}
+            <h1 style="color: white; display: block"  align="center">
+                Startseite
+            </h1>
+            {% endblock %}
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='index.js')}}">
+    </script>
+</body>
+
 </html>

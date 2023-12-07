@@ -13,3 +13,7 @@ def predictions():
 @pages.route("/calculations")
 def calculations():
     return render_template("calculations.html")
+
+@pages.route("/current_chart")
+def current_chart():
+    return render_template("current_chart.html")
