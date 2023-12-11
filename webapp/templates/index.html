@@ -5,43 +5,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kraken</title>
-    <link rel="stylesheet" href="styles.css">
+
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style type="text/css">
+    .sidebar {
+        height: 100%;
+        width: 180px;
+        position: fixed;
+        z-index: 1;
+        top:0;
+        left:0;
+        background-color: #101010;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+    .sidebar a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font: #ffffff;
+        display: fixed;
+    }
+    .sidebar a:hover{
+        color:#000000
+    }
+    .main{
+        margin-left: 160px;
+        padding: 0px 10px;
+    }
+
+</style>
 </head>
 
 <body bgcolor="001116">
     <div style="display: flex; width : 100%">
-        <div class="sidebar">
+        <div class = "sidebar">
             <header>
-                <h1 style="color: white; font-family: Arial, Helvetica, sans-serif;">Kraken</h1>
+                <h2 style="color: white; font-family: Arial, Helvetica, sans-serif;">Kraken</h2>
             </header>
             <ul>
                 <li>
-                    <a href="/">
-                        <h3>Startseite</h3>
+                    <a href="http://127.0.0.1:5000/">
+                        <h3 style="color: white; font-family: Arial, Helvetica, sans-serif;">Startseite</h3>
                     </a>
-                    <a href="predictions">
-                        <h3>Predictions</h3>
+                    <a href="http://127.0.0.1:5000/predictions">
+                        <h3 style="color: white; font-family: Arial, Helvetica, sans-serif;"> <background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' fill='none' viewBox='0 0 42 42'%3E%3Cpath stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.8' d='M5.25 5.25H14v10.5H5.25M14 10.5h12.25v21H14M26.25 21H38.5M5.25 26.25H14v10.5H5.25'/%3E%3C/svg%3E"); />Predictions</h3>
                     </a>
-                    <a href="calculations">
-                        <h3>Calculations</h3>
+                    <a href="http://127.0.0.1:5000/calculations">
+                        <h3 style="color: white; font-family: Arial, Helvetica, sans-serif;">Calculations</h3>
                     </a>
-                    <a href="current_chart">
-                        <h3>Current Chart</h3>
+                    <a href="http://127.0.0.1:5000/current_chart">
+                        <h3 style="color: white; font-family: Arial, Helvetica, sans-serif;">Current Chart</h3>
                     </a>
                 </li>
             </ul>
         </div>
         <div style="font-family: Arial, Helvetica, sans-serif;">
-            {% block content %}
-            <h1 style="color: white; display: block"  align="center">
-                Startseite
-            </h1>
-            {% endblock %}
+            <div class="startseite">
+                {% block content %}
+                <h1 style="color: white; display: block">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Startseite
+                </h1>
+                {% endblock %}
+            </div>
         </div>
     </div>
-    <script type="text/javascript" src="{{ url_for('static', filename='index.js')}}">
-    </script>
 </body>
 
 </html>
+
+
+<link rel="stylesheet" href="styles.css">
