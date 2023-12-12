@@ -20,4 +20,9 @@ body{
 .sidebar img.Settings{
     margin-top: auto;
 }
-
+.header {
+    font-family: Arial, Helvetica, sans-serif;
+    align-self: center;
+}
+.background img.backgroundpink{
+}
