@@ -10,10 +10,14 @@ body{
     padding: 35px;
     background-color: #101010;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 .sidebar img{
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
-.header{
+.sidebar img.Settings{
+    margin-top: auto;
 }
+
