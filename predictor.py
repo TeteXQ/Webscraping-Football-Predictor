@@ -106,28 +106,15 @@ def calculation_v1():
     awayPredGoalList = []
     awayList = []
 
+    dict = {1:2.5, 2:2.5, 3:2.5, 4:2, 5:2, 6:1.5, 7:1.5, 8:1.5, 9:1.25, 10:1.25, 11:1.25, 12:1.25, 13:1.25, 14:1, 15:1, 16:1, 17:1, 18:1}
+
     for index,row in matches.iterrows():
         homeTeam = Squad(row["Home"])
         awayTeam = Squad(row["Away"])
 
-        if homeTeam.Rk == '1' or '2' or '3' or '4':
-            homeTeamRkHilfe = 2
-        elif homeTeam.Rk == '5' or '6' or '7' or '8':
-            homeTeamRkHilfe = 1,5
-        elif homeTeam.Rk == '9' or '10' or '11' or '12' or '13':
-            homeTeamRkHilfe = 1,25
-        else: homeTeamRkHilfe = 1
-        
-        if awayTeam.Rk == '1' or '2' or '3' or '4':
-            awayTeamRkHilfe = 2
-        elif awayTeam.Rk == '5' or '6' or '7' or '8':
-            awayTeamRkHilfe = 1,5
-        elif awayTeam.Rk == '9' or '10' or '11' or '12' or '13':
-            awayTeamRkHilfe = 1,25
-        else: awayTeamRkHilfe = 1
-        
-        homeTeam = Squad(row["Home"])
-        awayTeam = Squad(row["Away"])
+        homeTeamRkHilfe = dict[homeTeam.Rk]
+        awayTeamRkHilfe = dict[awayTeam.Rk]
+
         homePred = round(float(homeTeamRkHilfe)*((homeTeam.xG)/(homeTeam.mp)))
         awayPred = round(float(awayTeamRkHilfe)*((awayTeam.xG)/(awayTeam.mp)))
         
@@ -136,18 +123,15 @@ def calculation_v1():
         awayPredGoalList.append(awayPred)
         awayList.append(f"{awayTeam.name}")
 
-        print(homeTeam.name, homeTeam.Rk, homeTeamRkHilfe)
-        print('')
-        print('VS')
-        print('')
-        print(awayTeam.name, awayTeam.Rk, awayTeamRkHilfe)
-
+        #print(homeTeam.name, homeTeam.Rk, homeTeamRkHilfe)
+        #print('')
+        #print('VS')
+        #print('')
+        #print(awayTeam.name, awayTeam.Rk, awayTeamRkHilfe)
     list = [homeList,homePredGoalList,awayPredGoalList,awayList]
 
     df = pd.DataFrame(list,index=["Home","Homescore","Awayscore","Away"]).T
     return(df)
-
-
 
 print(calculation_v1())
 
