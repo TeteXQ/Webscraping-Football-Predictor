@@ -19,7 +19,7 @@ class Squad:
             self.xGDp90 = self.__xGDp90()
             self.xG = self.__xG()
             self.xGA = self.__xGA()
-
+            self.mp = self.__mp()
     def __Home(self):
         #Does Squad play at home?
         try:
@@ -82,37 +82,56 @@ class Squad:
         except Exception as e:
             logging.error(f"Couldnt get Rank from {self.name}", e)
             return
-        
+    def __mp(self):
+        #Expected Goals Allowed on Home/Away 
+        try:
+            if self.home:
+                df = leagueTable
+                df = df[(df == self.name).any(axis=1)]
+                return df["MP"].iloc[0]
+            else:
+                df = leagueTable
+                df = df[(df == self.name).any(axis=1)]
+                return df["MP"].iloc[0]
+        except Exception as e:
+            logging.error(f"Couldnt get Rank from {self.name}", e)
+            return
 
-def TestCalculation():
+
+def calculation_v1():
     matches = LeagueData.nextMatches()
 
     homeList = []
-    homePredList = []
-    awayPredList = []
+    homePredGoalList = []
+    awayPredGoalList = []
     awayList = []
 
+    dict = {1:2.5, 2:2.5, 3:2.5, 4:2, 5:2, 6:1.5, 7:1.5, 8:1.5, 9:1.25, 10:1.25, 11:1.25, 12:1.25, 13:1.25, 14:1, 15:1, 16:1, 17:1, 18:1}
+
     for index,row in matches.iterrows():
-        #print(row["Home"])
         homeTeam = Squad(row["Home"])
         awayTeam = Squad(row["Away"])
-        homePred = float(homeTeam.Rk)*((homeTeam.xG)/(awayTeam.xGA))
-        awayPred = float(awayTeam.Rk)*((awayTeam.xG)/(homeTeam.xGA))
+
+        homeTeamRkHilfe = dict[homeTeam.Rk]
+        awayTeamRkHilfe = dict[awayTeam.Rk]
+
+        homePred = round(float(homeTeamRkHilfe)*((homeTeam.xG)/(homeTeam.mp)))
+        awayPred = round(float(awayTeamRkHilfe)*((awayTeam.xG)/(awayTeam.mp)))
         
         homeList.append(f"{homeTeam.name}")
-        homePredList.append(homePred)
-        awayPredList.append(awayPred)
+        homePredGoalList.append(homePred)
+        awayPredGoalList.append(awayPred)
         awayList.append(f"{awayTeam.name}")
-        print (homeTeam.name)
-        print (homeTeam.xGA)
-        print (awayTeam.name)
-        print (awayTeam.xG)
 
-    list = [homeList,homePredList,awayPredList,awayList]
+        #print(homeTeam.name, homeTeam.Rk, homeTeamRkHilfe)
+        #print('')
+        #print('VS')
+        #print('')
+        #print(awayTeam.name, awayTeam.Rk, awayTeamRkHilfe)
+    list = [homeList,homePredGoalList,awayPredGoalList,awayList]
 
     df = pd.DataFrame(list,index=["Home","Homescore","Awayscore","Away"]).T
     return(df)
 
+print(calculation_v1())
 
-print(matches)
-print(TestCalculation())
