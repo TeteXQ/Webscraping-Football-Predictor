@@ -33,13 +33,13 @@ body{
 .tabelle img{
     width: 75%;
 }
-.tabelle2{
+.tableCurrentMatchday{
     z-index: 0;
     position: absolute;
     margin-left: 23rem;
     margin-top: 3rem;
 }
-.tabelle2 img{
+.tableCurrentMatchday img{
     width: 75%;
     opacity: 100%;
 }
