@@ -15,6 +15,22 @@
         <a href="./current_matchday.html"><img class="CurrentMatchday" src="./icons/Current Matchday.svg"/></a>
         <img class="Settings" src="./icons/Settings.svg">
     </div>
+
+    <div class="tabelle">
+        <table>
+            <tbody>
+              {% for row in row_data %}
+              <tr>
+                {% for col, row_ in zip(column_names, row) %}
+                <td>{{row_}}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+    
+             
+            </tbody>
+
+          </table>
     <div class="tabelle">
         <img src="./icons/Rectangle 55.svg">
         <img src="./icons/Rectangle 55.svg">
