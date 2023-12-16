@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kraken</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+</head>
+<body>
+    <div class = "sidebar">
+        <a href="{{ url_for('pages.home') }}"><img class="HomeIcon" src="{{ url_for('static', filename='icons/HomeIcon.svg') }}"/></a>
+        <a href="{{ url_for('pages.current_chart') }}"><img class="LeagueTable" src="{{ url_for('static', filename='icons/League TableP.svg') }}"/></a>
+        <a href="{{ url_for('pages.history') }}"><img class="Frame" src="{{ url_for('static', filename='icons/Frame.svg') }}"/></a>
+        <a href="{{ url_for('pages.predictions') }}"><img class="Predictions" src="{{ url_for('static', filename='icons/Predictions.svg') }}"/></a>
+        <a href="{{ url_for('pages.current_matchday') }}"><img class="CurrentMatchday" src="{{ url_for('static', filename='icons/Current Matchday.svg') }}"/></a>
+        <img class="Settings" src="{{ url_for('static', filename='icons/Settings.svg') }}">
+    </div>
+    <div>
+        <table>
+            <thead>
+    
+              <tr>
+                {% for col in column_names %}
+                <th>
+                
+                  {{col}}
+                 
+                </th>
+                {% endfor %}
+              </tr>
+    
+            </thead>
+            <tbody>
+              {% for row in row_data %}
+              <tr>
+                {% for col, row_ in zip(column_names, row) %}
+                <td>{{row_}}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+    
+             
+            </tbody>
+      
+          </table>
+    </div>
+    <div class="tabelle">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+        <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
+    </div>
+    <div class="background">
+        <img class="backgroundpink" src="{{ url_for('static', filename='background/pink.svg')}}" style="top: 0; position: absolute; height: 100vh; z-index: -1;">
+    </div>
+    <div class="background2">
+        <img class="backgroundblue" src="{{ url_for('static', filename='background/blau.svg')}}" style="top:0; right: 0; position: absolute; height: 100vh; z-index: -1;" >
+    </div>
+    <div>
+        <img src="{{ url_for('static', filename='icons/Search.svg') }}" style="margin-left: 110rem; position: absolute; margin-top: 78px;"/>
+    </div>
+</body>
+</html>

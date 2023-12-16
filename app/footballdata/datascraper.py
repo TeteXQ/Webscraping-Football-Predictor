@@ -14,7 +14,6 @@ class LeagueData:
         pass
 
     def switchURL(self, keyword:str):
-        #Internal search for different URL of contest
         try:
             res = requests.get(self.contestURL)
             soup = BeautifulSoup(res.content, "html.parser")
@@ -26,7 +25,7 @@ class LeagueData:
             return
     
     def getTablesfromSite(self):
-        #Get all tables of given Site (fbref.com)
+        #Get all tables of given Site
         try:
             allTables = pd.read_html(self.contestURL)
             logging.info(f"Found {len(allTables)} tables on {self.contestURL}")
@@ -46,7 +45,6 @@ class LeagueData:
             return None
     
     def nextMatches(self):
-        #Get table of yet unplayed matches of this matchday (Moved games included)
         try:
             df = pd.read_html(self.scoresURL)[0]
             try:
@@ -63,12 +61,10 @@ class LeagueData:
             return
 
     def currentMatchday(self):
-        #Get table of with all matches of current matchday
         try: 
             df = pd.read_html(self.scoresURL)[0]
             dfnextMD = self.nextMatches()
-            matchday = float(dfnextMD["Wk"].loc[dfnextMD['Wk'].idxmax()])
-            df = df[(df == matchday).any(axis = 1)].drop(["Match Report", "Notes"], axis=1)
+            df = df[df["Wk"].isin(dfnextMD["Wk"])].drop(["Match Report", "Notes"], axis=1)
             logging.info(f"Successfully found current matchday")
             return df
         except Exception as e:
@@ -76,7 +72,6 @@ class LeagueData:
             return
 
     def getLeagueTable(self):
-        #Get standard league table to overview ranks etc
         try:
             df = self.selectTablefromTables(self.getTablesfromSite(),0)
             return df.drop(["Top Team Scorer","Goalkeeper","Notes"], axis=1)
@@ -85,7 +80,6 @@ class LeagueData:
             return
     
     def getTableHomeAway(self):
-        #Get league table that is based on home/away played matches
         try:
             df = self.selectTablefromTables(self.getTablesfromSite(),1)
             return df
@@ -98,9 +92,7 @@ class LeagueData:
 d = LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
 #print(d.getTableHomeAway())
 #print (d.getTablesfromSite())
-print(d.nextMatches())
-print(d.currentMatchday())
-#print(d.removeIllegalChars(d.getLeagueTable(),["Squad","Last 5"]))
+#print(d.nextMatches())
 
 """ 
 def removeIllegalChars(self, df:pd.DataFrame, columnNames:list):

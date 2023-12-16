@@ -1,0 +1,54 @@
+body{
+    background-color: #262626;
+}
+.sidebar{
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    padding: 35px;
+    background-color: #101010;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar img{
+    display: block;
+    margin-bottom: 50px;
+}
+.sidebar img.Settings{
+    margin-top: auto;
+}
+.header {
+    font-family: Arial, Helvetica, sans-serif;
+    align-self: center;
+}
+.tabelle{
+    z-index: 1;
+    position: absolute;
+    margin-left: 20rem;
+    margin-top: 3rem;
+}
+.tabelle img{
+    width: 75%;
+}
+.tabelle2{
+    z-index: 0;
+    position: absolute;
+    margin-left: 23rem;
+    margin-top: 3rem;
+}
+.tabelle2 img{
+    width: 75%;
+    opacity: 100%;
+}
+.vsview {
+    z-index: 1;
+    position: absolute;
+    margin-left: 30rem;
+    margin-top: 4.5rem;
+}
+.vsview img{
+    z-index: 2;
+}
