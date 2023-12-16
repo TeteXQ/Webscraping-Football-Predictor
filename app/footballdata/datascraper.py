@@ -64,7 +64,8 @@ class LeagueData:
         try: 
             df = pd.read_html(self.scoresURL)[0]
             dfnextMD = self.nextMatches()
-            df = df[df["Wk"].isin(dfnextMD["Wk"])].drop(["Match Report", "Notes"], axis=1)
+            matchday = float(dfnextMD["Wk"].loc[dfnextMD['Wk'].idxmax()]) 
+            df = df[(df == matchday).any(axis = 1)].drop(["Match Report", "Notes"], axis=1)
             logging.info(f"Successfully found current matchday")
             return df
         except Exception as e:

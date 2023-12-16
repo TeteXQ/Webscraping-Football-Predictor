@@ -27,4 +27,5 @@ def current_chart():
 
 @pages.route("/current_matchday")
 def current_matchday():
-    return render_template("current_matchday.html")
+    df = league.currentMatchday().drop(["Date","Time","Attendance","Venue","Referee"], axis=1)
+    return render_template("current_matchday.html", column_names=df.columns.values, row_data=list(df.values.tolist()), zip=zip)
