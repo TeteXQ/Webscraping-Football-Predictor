@@ -93,7 +93,6 @@ d = LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
 #print(d.getTableHomeAway())
 #print (d.getTablesfromSite())
 #print(d.nextMatches())
-#print(d.removeIllegalChars(d.getLeagueTable(),["Squad","Last 5"]))
 
 """ 
 def removeIllegalChars(self, df:pd.DataFrame, columnNames:list):

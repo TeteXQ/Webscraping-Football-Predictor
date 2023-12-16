@@ -15,6 +15,35 @@
         <a href="{{ url_for('pages.current_matchday') }}"><img class="CurrentMatchday" src="{{ url_for('static', filename='icons/Current Matchday.svg') }}"/></a>
         <img class="Settings" src="{{ url_for('static', filename='icons/Settings.svg') }}">
     </div>
+    <div>
+        <table>
+            <thead>
+    
+              <tr>
+                {% for col in column_names %}
+                <th>
+                
+                  {{col}}
+                 
+                </th>
+                {% endfor %}
+              </tr>
+    
+            </thead>
+            <tbody>
+              {% for row in row_data %}
+              <tr>
+                {% for col, row_ in zip(column_names, row) %}
+                <td>{{row_}}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+    
+             
+            </tbody>
+      
+          </table>
+    </div>
     <div class="tabelle">
         <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
         <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
