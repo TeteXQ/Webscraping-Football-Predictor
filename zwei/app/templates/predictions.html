@@ -8,21 +8,21 @@
 </head>
 <body>
     <div class = "sidebar">
-        <a href="{{ url_for('pages.home') }}"><img class="HomeIcon" src="{{ url_for('static', filename='icons/HomeIconP.svg') }}"/></a>
+        <a href="{{ url_for('pages.home') }}"><img class="HomeIcon" src="{{ url_for('static', filename='icons/HomeIcon.svg') }}"/></a>
         <a href="{{ url_for('pages.current_chart') }}"><img class="LeagueTable" src="{{ url_for('static', filename='icons/League Table.svg') }}"/></a>
         <a href="{{ url_for('pages.history') }}"><img class="Frame" src="{{ url_for('static', filename='icons/Frame.svg') }}"/></a>
-        <a href="{{ url_for('pages.predictions') }}"><img class="Predictions" src="{{ url_for('static', filename='icons/Predictions.svg') }}"/></a>
+        <a href="{{ url_for('pages.predictions') }}"><img class="Predictions" src="{{ url_for('static', filename='icons/PredictionsP.svg') }}"/></a>
         <a href="{{ url_for('pages.current_matchday') }}"><img class="CurrentMatchday" src="{{ url_for('static', filename='icons/Current Matchday.svg') }}"/></a>
         <img class="Settings" src="{{ url_for('static', filename='icons/Settings.svg') }}">
     </div>
     <div class="background">
-        <img class="backgroundpink" src="./background/pink.svg" style="top: 0; position: absolute; height: 100vh;">
+        <img class="backgroundpink" src="{{ url_for('static', filename='background/pink.svg')}}" style="top: 0; position: absolute; height: 100vh;">
     </div>
     <div class="background2">
-        <img class="backgroundblue" src="./background/blau.svg" style="top:0; right: 0; position: absolute; height: 100vh;" >
+        <img class="backgroundblue" src="{{ url_for('static', filename='background/blau.svg')}}" style="top:0; right: 0; position: absolute; height: 100vh;" >
     </div>
     <div>
-        <img src="./icons/Search.svg" style="margin-left: 110rem; position: absolute; margin-top: 78px;"/>
+        <img src="{{ url_for('static', filename='icons/Search.svg') }}" style="margin-left: 110rem; position: absolute; margin-top: 78px;"/>
     </div>
     <div class="header"></div>
     </div>
