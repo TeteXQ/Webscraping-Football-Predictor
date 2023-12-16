@@ -22,9 +22,10 @@ def history():
 
 @pages.route("/current_chart")
 def current_chart():
-    df = league.getLeagueTable().drop(["xGD/90","Attendance"], axis=1)
+    df = league.getLeagueTable().drop(["Pts/MP","xGD/90","Attendance"], axis=1)
     return render_template("current_chart.html", column_names=df.columns.values, row_data=list(df.values.tolist()), zip=zip)
 
 @pages.route("/current_matchday")
 def current_matchday():
-    return render_template("current_matchday.html")
+    df = league.currentMatchday().drop(["Wk","Day","Date","Time","Attendance","Venue","Referee"], axis=1)
+    return render_template("current_matchday.html", column_names=df.columns.values, row_data=list(df.values.tolist()), zip=zip)
