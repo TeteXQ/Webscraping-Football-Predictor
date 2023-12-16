@@ -1,26 +1,11 @@
-from flask import Flask, render_template, url_for
+from flask import Flask
+from allpages import pages
 
-app = Flask(__name__)
+# insert data for button "Home"
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+kraken = Flask(__name__)
+kraken.register_blueprint(pages, url_prefix="/")
 
-@app.route('/current_chart')
-def current_chart():
-    return render_template('current_chart.html')
 
-@app.route('/predictions')
-def predictions():
-    return render_template('predictions.html')
-
-@app.route('/history')
-def history():
-    return render_template('history.html')
-
-@app.route('/current_matchday')
-def current_matchday():
-    return render_template('current_matchday.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ =='__main__':
+    kraken.run(debug=True)

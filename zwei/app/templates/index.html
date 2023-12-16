@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kraken</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
 </head>
 <body>
     <div class="sidebar">
-        <a href="./index.html"><img class="HomeIcon" src="./icons/HomeIconP.svg"/></a>
-        <a href="./current_chart.html"><img class="LeagueTable" src="./icons/League Table.svg"/></a>
-        <a href="./history.html"><img class="Frame" src="./icons/Frame.svg"/></a>
-        <a href="./predictions.html"><img class="Predictions" src="./icons/Predictions.svg"/></a>
-        <a href="./current_matchday.html"><img class="CurrentMatchday" src="./icons/Current Matchday.svg"/></a>
-        <img class="Settings" src="./icons/Settings.svg">
+        <a href="{{ url_for('pages.home') }}"><img class="HomeIcon" src="{{ url_for('static', filename='icons/HomeIconP.svg') }}"/></a>
+        <a href="{{ url_for('pages.current_chart') }}"><img class="LeagueTable" src="{{ url_for('static', filename='icons/League Table.svg') }}"/></a>
+        <a href="{{ url_for('pages.history') }}"><img class="Frame" src="{{ url_for('static', filename='icons/Frame.svg') }}"/></a>
+        <a href="{{ url_for('pages.predictions') }}"><img class="Predictions" src="{{ url_for('static', filename='icons/Predictions.svg') }}"/></a>
+        <a href="{{ url_for('pages.current_matchday') }}"><img class="CurrentMatchday" src="{{ url_for('static', filename='icons/Current Matchday.svg') }}"/></a>
+        <img class="Settings" src="{{ url_for('static', filename='icons/Settings.svg') }}">
     </div>
     <div class="background">
-        <img class="backgroundpink" src="./background/pink2.svg" style="right: 0; top: 0; position: absolute; height: 100vh;">
+        <img class="backgroundpink" src="{{ url_for('static', filename='background/pink2.svg')}}" style="right: 0; top: 0; position: absolute; height: 100vh;">
     </div>
     <div class="background2">
-        <img class="backgroundblue" src="./background/blau2.svg" style="bottom:0; left: 0; position: absolute; height: 100vh;" >
+        <img class="backgroundblue" src="{{ url_for('static', filename='background/blau2.svg')}}" style="bottom:0; left: 0; position: absolute; height: 100vh;" >
     </div>
     <div>
         <img src="./icons/Search.svg" style="margin-left: 110rem; position: absolute;"/>
