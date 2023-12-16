@@ -24,5 +24,31 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     align-self: center;
 }
-.background img.backgroundpink{
+.tabelle{
+    z-index: 1;
+    position: absolute;
+    margin-left: 20rem;
+    margin-top: 3rem;
+}
+.tabelle img{
+    width: 75%;
+}
+.tabelle2{
+    z-index: 0;
+    position: absolute;
+    margin-left: 23rem;
+    margin-top: 3rem;
+}
+.tabelle2 img{
+    width: 75%;
+    opacity: 100%;
+}
+.vsview {
+    z-index: 1;
+    position: absolute;
+    margin-left: 30rem;
+    margin-top: 4.5rem;
+}
+.vsview img{
+    z-index: 2;
 }
