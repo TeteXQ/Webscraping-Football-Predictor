@@ -17,7 +17,7 @@
     </div>
     <div>
         <table>
-            <thead>
+            <thead style="font-family: Arial, Helvetica, sans-serif; position: absolute; margin-left: 20rem; font-size: 2rem; z-index: 1; color: white;">
     
               <tr>
                 {% for col in column_names %}
@@ -30,7 +30,7 @@
               </tr>
     
             </thead>
-            <tbody>
+            <tbody style="font-family: Arial, Helvetica, sans-serif; position: absolute; margin-left: 20.5rem; font-size: 2.3rem; z-index: 1; color: white; margin-top: 3rem;">
               {% for row in row_data %}
               <tr>
                 {% for col, row_ in zip(column_names, row) %}
@@ -44,7 +44,7 @@
 
         </table>
     </div>
-    <div class="tabelle">
+    <div class="tabelle" style="z-index: -1;">
         <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
         <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
         <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
@@ -65,10 +65,10 @@
         <img src="{{ url_for('static', filename='icons/Rectangle 55.svg')}}">
     </div>
     <div class="background">
-        <img class="backgroundpink" src="{{ url_for('static', filename='background/pink.svg')}}" style="top: 0; position: absolute; height: 100vh; z-index: -1;">
+        <img class="backgroundpink" src="{{ url_for('static', filename='background/pink.svg')}}" style="top: 0; position: absolute; height: 100vh; z-index: -3;">
     </div>
     <div class="background2">
-        <img class="backgroundblue" src="{{ url_for('static', filename='background/blau.svg')}}" style="top:0; right: 0; position: absolute; height: 100vh; z-index: -1;" >
+        <img class="backgroundblue" src="{{ url_for('static', filename='background/blau.svg')}}" style="top:0; right: 0; position: absolute; height: 100vh; z-index: -3;" >
     </div>
     <div>
         <img src="{{ url_for('static', filename='icons/Search.svg') }}" style="margin-left: 110rem; position: absolute; margin-top: 78px;"/>
