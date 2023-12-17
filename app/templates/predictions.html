@@ -15,6 +15,21 @@
         <a href="{{ url_for('pages.current_matchday') }}"><img class="CurrentMatchday" src="{{ url_for('static', filename='icons/Current Matchday.svg') }}"/></a>
         <img class="Settings" src="{{ url_for('static', filename='icons/Settings.svg') }}">
     </div>
+    <div>
+        <table>
+            <tbody>
+              {% for row in row_data %}
+              <tr class="tr{{row}}">
+                {% for col, row_ in zip(column_names, row) %}
+                <td>{{row_}}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+    
+            </tbody>
+      
+          </table>
+    </div>
     <div class="background">
         <img class="backgroundpink" src="{{ url_for('static', filename='background/pink.svg')}}" style="top: 0; position: absolute; height: 100vh;">
     </div>

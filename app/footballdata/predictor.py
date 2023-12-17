@@ -1,7 +1,8 @@
-import datascraper
+from . import datascraper
 import pandas as pd
 import numpy as np
 import logging
+
 
 #Temporary version of defining tables
 LeagueData = datascraper.LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
