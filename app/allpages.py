@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for
 
+from footballdata import datascraper
+import footballdata.predictor as predictor
 import pandas as pd
-from footballdata.datascraper import LeagueData
-
-league = LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
+league = datascraper.LeagueData("https://fbref.com/en/comps/20/Bundesliga-Stats")
 
 
 pages = Blueprint("pages", '__name__')
@@ -14,7 +14,8 @@ def home():
 
 @pages.route("/predictions")
 def predictions():
-    return render_template("predictions.html")
+    df = predictor.calculation_v1()
+    return render_template("predictions.html", column_names=df.columns.values, row_data=list(df.values.tolist()), zip=zip)
 
 @pages.route("/history")
 def history():
