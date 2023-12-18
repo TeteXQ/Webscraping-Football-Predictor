@@ -133,5 +133,5 @@ def calculation_v1():
     df = pd.DataFrame(list,index=["Home","Homescore","Awayscore","Away"]).T
     return(df)
 
-print(calculation_v1())
+#print(calculation_v1())
 
