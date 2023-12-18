@@ -52,3 +52,9 @@ body{
 .vsview img{
     z-index: 2;
 }
+.tabellenhintergrund img{
+    position: absolute;
+    margin-left: 20rem;
+    margin-top: 3rem;
+    width: 75%;
+}
