@@ -23,21 +23,6 @@
     </div>
     <div class ="tableCurrentMatchday">
         <img src="{{ url_for('static', filename='icons/Vector.svg')}}">
-        <div>
-            <table>
-                <tbody>
-                  {% for row in row_data %}
-                  <tr class="tr{{row}}">
-                    {% for col, row_ in zip(column_names, row) %}
-                    <td>{{row_}}</td>
-                    {% endfor %}
-                  </tr>
-                  {% endfor %}
-        
-                </tbody>
-          
-              </table>
-        </div>
     </div>
     <div class="background">
         <img class="backgroundpink" src="{{ url_for('static', filename='background/pink2.svg')}}" style="right: 0; top: 0; position: absolute; height: 100vh; z-index: -1;">

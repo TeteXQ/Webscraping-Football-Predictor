@@ -52,3 +52,12 @@ body{
 .vsview img{
     z-index: 2;
 }
+.tabellepr{
+    z-index: 1;
+    position: absolute;
+    margin-left: 25rem;
+    margin-top: 2rem;
+}
+.tabellepr img{
+    width: 70rem;
+}
