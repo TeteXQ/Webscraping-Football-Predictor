@@ -25,7 +25,7 @@ class Squad:
         #Does Squad play at home?
         try:
             df = matches
-            if "Home" == df.columns[df.isin([self.name]).any()]:
+            if "Home" == df.columns[df.isin([self.name]).any()].any():
                 return True
             elif "Away" == df.columns[df.isin([self.name]).any()]:
                 return False
